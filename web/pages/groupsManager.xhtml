@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="default.css"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/main-template.xhtml">
+        <ui:define name="main">
+            <h1 class="pageTitle">Groups Manager</h1>
+            <h:form id="setStudentToGroupForm">
+                <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                    <f:facet name="header">Set Student To Group</f:facet>
+                    <h:outputText value="Student"/>
+                    <h:selectOneMenu value="#{studentData.studentBean.element}" converter="converters.StudentConverter"
+                                     required="true" requiredMessage="Student field can't be empty">
+                        <f:selectItems value="#{studentData.studentsMap}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Group"/>
+                    <h:selectOneMenu value="#{groupData.groupBean.element}" converter="converters.GroupConverter"
+                                     required="true" requiredMessage="Group field can't be empty">
+                        <f:selectItems value="#{groupData.groupsMap}"/>
+                    </h:selectOneMenu>
+                    <f:facet name="footer">
+                        <h:commandButton value="Set" action="#{groupsManagerData.setStudentToGroup()}"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="setCuratorToGroupForm">
+                <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                    <f:facet name="header">Set Curator To Group</f:facet>
+                    <h:outputText value="Teacher"/>
+                    <h:selectOneMenu value="#{teacherData.teacherBean.element}" converter="converters.TeacherConverter"
+                                     required="true" requiredMessage="Teacher field can't be empty">
+                        <f:selectItems value="#{teacherData.teachersMap}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Group"/>
+                    <h:selectOneMenu value="#{groupData.groupBean.element}" converter="converters.GroupConverter"
+                                     required="true" requiredMessage="Group field can't be empty">
+                        <f:selectItems value="#{groupData.groupsMap}"/>
+                    </h:selectOneMenu>
+                    <f:facet name="footer">
+                        <h:commandButton value="Set" action="#{groupsManagerData.setCuratorToGroup()}"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+        <h:messages style="color: red; font-style: italic"/>
+    </ui:composition>
+</h:body>
+</html>

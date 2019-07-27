@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <h:outputStylesheet library="css" name="layout.css"/>
+    <h:outputStylesheet library="css" name="default.css"/>
+    <title>Faceletes Template</title>
+</h:head>
+<h:body>
+    <div id="top">
+        <ui:insert name="top">
+            <div id="logo">
+                <h:graphicImage library="icons" name="logo.png" width="auto" height="100%"/>
+                <h1>Campus</h1>
+            </div>
+        </ui:insert>
+    </div>
+    <div id="content">
+        <div id="left-content">
+            <ui:insert name="left">
+                <h:form styleClass="navigationalForm">
+                    <h1 class="navigationalTitle">Pages</h1>
+                    <ul class="navigationalList">
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="Students"
+                                           action="#{studentData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="Groups"
+                                           action="#{groupData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="Teachers"
+                                           action="#{teacherData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="GroupsManager"
+                                           action="#{groupsManagerData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:outputLink styleClass="navigationalLink" value="../index.xhtml">Main</h:outputLink>
+                        </li>
+                    </ul>
+                </h:form>
+            </ui:insert>
+        </div>
+        <div id="main-content">
+            <ui:insert name="main">
+                <h1 class="pageTitle">Welcome to the campus!!!</h1>
+            </ui:insert>
+        </div>
+    </div>
+    <div id="bottom">
+        <ui:insert name="bottom"/>
+    </div>
+</h:body>
+</html>

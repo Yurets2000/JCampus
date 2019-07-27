@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="default.css"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/main-template.xhtml">
+        <ui:define name="main">
+            <h1 class="pageTitle">Groups</h1>
+            <h:form id="displayGroupsForm">
+                <h:dataTable value="#{groupData.groupBeans}" var="groupBean"
+                             cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{groupBean.element.name}" rendered="#{not groupBean.editable}"/>
+                        <h:inputText value="#{groupBean.element.name}" rendered="#{groupBean.editable}"
+                                     required="true" requiredMessage="Name field can't be empty"
+                                     validatorMessage="Name field filled incorrect">
+                            <f:validateRegex pattern="^[A-Z]{2}-[1-9][0-9]$"/>
+                        </h:inputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                        <h:outputText value="#{groupBean.element.email}" rendered="#{not groupBean.editable}"/>
+                        <h:inputText value="#{groupBean.element.email}" rendered="#{groupBean.editable}"
+                                     validatorMessage="Email field filled incorrect">
+                            <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"/>
+                        </h:inputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Leader</f:facet>
+                        <h:outputText value="#{groupBean.element.leader}" rendered="#{not groupBean.editable}"/>
+                        <h:selectOneMenu value="#{groupBean.element.leader}" rendered="#{groupBean.editable}"
+                                         converter="converters.StudentConverter">
+                            <f:selectItems value="#{studentData.getStudentsByGroupMap(groupBean.element)}"/>
+                        </h:selectOneMenu>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Curator</f:facet>
+                        <h:outputText value="#{groupBean.element.curator}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <h:commandButton image="../resources/icons/trash.png" styleClass="tableButton"
+                                         rendered="#{not groupBean.editable}"
+                                         action="#{groupData.deleteGroup(groupBean)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <h:commandButton image="../resources/icons/edit.png" styleClass="tableButton"
+                                         rendered="#{not groupBean.editable}"
+                                         action="#{groupData.editGroup(groupBean)}"/>
+                        <h:commandButton image="../resources/icons/checked.png" styleClass="tableButton"
+                                         rendered="#{groupBean.editable}" action="#{groupData.updateGroup(groupBean)}"/>
+                    </h:column>
+                    <h:messages style="color: red; font-style: italic"/>
+                </h:dataTable>
+            </h:form>
+            <h:form>
+                <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                    <f:facet name="header">Add Group</f:facet>
+                    <h:outputText value="Name"/>
+                    <h:inputText value="#{groupData.groupBean.element.name}"
+                                 required="true" requiredMessage="Name field can't be empty"
+                                 validatorMessage="Name field filled incorrect">
+                        <f:validateRegex pattern="^[A-Z]{2}-[1-9][0-9]$"/>
+                    </h:inputText>
+                    <h:outputText value="Email"/>
+                    <h:inputText value="#{groupData.groupBean.element.email}"
+                                 validatorMessage="Email field filled incorrect">
+                        <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"/>
+                    </h:inputText>
+                    <f:facet name="footer">
+                        <h:commandButton value="Add" action="#{groupData.addGroup()}"/>
+                    </f:facet>
+                    <h:messages style="color: red; font-style: italic"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,28 @@
+#top, #bottom{
+    background-color: mediumseagreen;
+}
+
+#top{
+    height: 17.5vh;
+    border-bottom: 2px solid dimgrey;
+}
+
+#bottom{
+    height: 10vh;
+    border-top: 2px solid dimgrey;
+}
+
+#content{
+    flex-grow: 2;
+    display: flex;
+}
+
+#left-content{
+    border-right: 2px solid dimgrey;
+    background-color: ivory;
+    width: 25vw;
+}
+
+#main-content{
+    flex-grow: 2;
+}

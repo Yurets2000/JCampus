@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Concert One');
+
+html, body{
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+#top{
+    display: flex;
+    justify-content: center;
+}
+
+#logo{
+    height: 80%;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+#logo>img{
+    margin-right: 15px;
+}
+
+#logo>h1{
+    margin: 0;
+    color: #232323;
+    font-size: 4.5em;
+    font-weight: bold;
+    font-family: Concert One;
+}
+
+.dataTable, .panelGrid{
+    margin: 15px;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.dataTable td{
+    border-bottom: 1px solid black;
+}
+
+.dataTable tr:nth-child(odd){
+    background-color: lightgray;
+}
+
+.dataTableHeader{
+    background-color: aquamarine;
+}
+
+.pageTitle{
+    text-align: center;
+}
+
+.tableButton{
+    width: 20px;
+    height: 20px;
+}
+
+.navigationalForm{
+    margin: 15px auto;
+}
+
+.navigationalTitle{
+    text-align: center;
+}
+
+.navigationalList{
+    list-style-type: square;
+    font-weight: bold;
+}
+
+.navigationalLink{
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.navigationalLink:active{
+    color: orangered;
+}
+
+.navigationalLink:hover{
+    color: orange;
+}
+
+.navigationalLink:visited{
+    color: inherit;
+}

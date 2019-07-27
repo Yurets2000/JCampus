@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="default.css"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/main-template.xhtml">
+        <ui:define name="main">
+            <h1 class="pageTitle">Students</h1>
+            <h:form id="displayStudentsForm">
+                <h:dataTable value="#{studentData.studentBeans}" var="studentBean"
+                             cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{studentBean.element.name}" rendered="#{not studentBean.editable}"/>
+                        <h:inputText value="#{studentBean.element.name}" rendered="#{studentBean.editable}"
+                                     required="true" requiredMessage="Name field can't be empty"
+                                     validatorMessage="Name field filled incorrect">
+                            <f:validateRegex pattern="^([a-zA-Z]+[,.]?\\s?|[a-zA-Z]+['-]?)+$"/>
+                        </h:inputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Surname</f:facet>
+                        <h:outputText value="#{studentBean.element.surname}" rendered="#{not studentBean.editable}"/>
+                        <h:inputText value="#{studentBean.element.surname}" rendered="#{studentBean.editable}"
+                                     required="true" requiredMessage="Surname field can't be empty"
+                                     validatorMessage="Surname field filled incorrect">
+                            <f:validateRegex pattern="^([a-zA-Z]+[,.]?[ ]?|[a-zA-Z]+['-]?)+$"/>
+                        </h:inputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Age</f:facet>
+                        <h:outputText value="#{studentBean.element.age}" rendered="#{not studentBean.editable}"/>
+                        <h:inputText value="#{studentBean.element.age}" rendered="#{studentBean.editable}"
+                                     required="true" requiredMessage="Age field can't be empty"
+                                     validatorMessage="Age field filled incorrect">
+                            <f:validateLongRange minimum="3" maximum="120"/>
+                        </h:inputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sex</f:facet>
+                        <h:outputText value="#{studentBean.element.sex}" rendered="#{not studentBean.editable}"/>
+                        <h:selectOneMenu value="#{studentBean.element.sex}" rendered="#{studentBean.editable}"
+                                         required="true" requiredMessage="Sex field can't be empty">
+                            <f:selectItem itemValue='m' itemLabel="man"/>
+                            <f:selectItem itemValue='w' itemLabel="woman"/>
+                        </h:selectOneMenu>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Group</f:facet>
+                        <h:outputText value="#{studentBean.element.group.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <h:commandButton image="../resources/icons/trash.png" styleClass="tableButton"
+                                         rendered="#{not studentBean.editable}"
+                                         action="#{studentData.deleteStudent(studentBean)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <h:commandButton image="../resources/icons/edit.png" styleClass="tableButton"
+                                         rendered="#{not studentBean.editable}"
+                                         action="#{studentData.editStudent(studentBean)}"/>
+                        <h:commandButton image="../resources/icons/checked.png" styleClass="tableButton"
+                                         rendered="#{studentBean.editable}"
+                                         action="#{studentData.updateStudent(studentBean)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+            <h:form id="addStudentForm">
+                <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                    <f:facet name="header">Add Student</f:facet>
+                    <h:outputText value="Name"/>
+                    <h:inputText value="#{studentData.studentBean.element.name}"
+                                 required="true" requiredMessage="Name field can't be empty"
+                                 validatorMessage="Name field filled incorrect">
+                        <f:validateRegex pattern="^([a-zA-Z]+[,.]?\\s?|[a-zA-Z]+['-]?)+$"/>
+                    </h:inputText>
+                    <h:outputText value="Surname"/>
+                    <h:inputText value="#{studentData.studentBean.element.surname}"
+                                 required="true" requiredMessage="Surname field can't be empty"
+                                 validatorMessage="Surname field filled incorrect">
+                        <f:validateRegex pattern="^([a-zA-Z]+[,.]?[ ]?|[a-zA-Z]+['-]?)+$"/>
+                    </h:inputText>
+                    <h:outputText value="Age"/>
+                    <h:inputText value="#{studentData.studentBean.element.age}"
+                                 required="true" requiredMessage="Age field can't be empty"
+                                 validatorMessage="Age field filled incorrect">
+                        <f:validateLongRange minimum="3" maximum="120"/>
+                    </h:inputText>
+                    <h:outputText value="Sex"/>
+                    <h:selectOneMenu value="#{studentData.studentBean.element.sex}"
+                                     required="true" requiredMessage="Sex field can't be empty">
+                        <f:selectItem itemValue='m' itemLabel="man"/>
+                        <f:selectItem itemValue='w' itemLabel="woman"/>
+                    </h:selectOneMenu>
+                    <f:facet name="footer">
+                        <h:commandButton value="Add" action="#{studentData.addStudent()}"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+            <h:messages style="color: red; font-style: italic"/>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
