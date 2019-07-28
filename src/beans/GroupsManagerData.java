@@ -1,91 +1,67 @@
 package beans;
 
-import dao.GroupDao;
-import dao.StudentDao;
-import dao.TeacherDao;
+import dao.managers.GroupManagerDao;
 import dto.Group;
 import dto.Student;
 import dto.Teacher;
-import dto.managers.GroupManager;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
 public class GroupsManagerData {
 
-    @ManagedProperty(value = "#{groupData}")
-    private GroupData groupData;
-    @ManagedProperty(value = "#{studentData}")
-    private StudentData studentData;
-    @ManagedProperty(value = "#{teacherData}")
-    private TeacherData teacherData;
+    private Teacher teacher;
+    private Student student;
+    private Group group;
 
-    public void setGroupData(GroupData groupData) {
-        this.groupData = groupData;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setStudentData(StudentData studentData) {
-        this.studentData = studentData;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public void setTeacherData(TeacherData teacherData) {
-        this.teacherData = teacherData;
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public String redirect() {
-        groupData.refreshGroupBeans();
-        studentData.refreshStudentBeans();
-        teacherData.refreshTeacherBeans();
         return "groupsManager.xhtml";
     }
 
     public void setStudentToGroup() {
-        Student student = studentData.getStudentBean().getElement();
-        Group group = groupData.getGroupBean().getElement();
-        if (student.getGroup() != null) {
-            GroupManager.removeStudentFromGroup(student, student.getGroup());
-        }
-        GroupManager.addStudentToGroup(student, group);
         Session session = HibernateUtil.getSessionFactory().openSession();
-        StudentDao studentDao = new StudentDao(session);
-        GroupDao groupDao = new GroupDao(session);
-        studentDao.update(student);
-        groupDao.update(group);
+        GroupManagerDao groupManagerDao = new GroupManagerDao(session);
+        groupManagerDao.setStudentToGroup(student, group);
         session.close();
-        studentData.setStudentBean(new TableElement<>(new Student()));
-        groupData.setGroupBean(new TableElement<>(new Group()));
+        student = null;
+        group = null;
     }
 
     public void setCuratorToGroup() {
-        Group group = groupData.getGroupBean().getElement();
-        Teacher teacher = teacherData.getTeacherBean().getElement();
-        Teacher oldTeacher = group.getCurator();
-        Group oldGroup = teacher.getGroup();
-
         Session session = HibernateUtil.getSessionFactory().openSession();
-        TeacherDao teacherDao = new TeacherDao(session);
-        GroupDao groupDao = new GroupDao(session);
-
-        if (oldTeacher != null) {
-            GroupManager.setCuratorToGroup(null, group);
-            teacherDao.update(oldTeacher);
-        }
-        if (oldGroup != null) {
-            GroupManager.setCuratorToGroup(null, oldGroup);
-            groupDao.update(oldGroup);
-        }
-
-        GroupManager.setCuratorToGroup(teacher, group);
-        teacherDao.update(teacher);
-        groupDao.update(group);
+        GroupManagerDao groupManagerDao = new GroupManagerDao(session);
+        groupManagerDao.setCuratorToGroup(teacher, group);
         session.close();
-        teacherData.setTeacherBean(new TableElement<>(new Teacher()));
-        groupData.setGroupBean(new TableElement<>(new Group()));
+        teacher = null;
+        group = null;
     }
 
 }

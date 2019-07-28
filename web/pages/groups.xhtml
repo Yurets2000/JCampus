@@ -13,6 +13,7 @@
         <ui:define name="main">
             <h1 class="pageTitle">Groups</h1>
             <h:form id="displayGroupsForm">
+                <h2 class="formTitle">Groups Table</h2>
                 <h:dataTable value="#{groupData.groupBeans}" var="groupBean"
                              cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
                     <h:column>
@@ -37,7 +38,7 @@
                         <h:outputText value="#{groupBean.element.leader}" rendered="#{not groupBean.editable}"/>
                         <h:selectOneMenu value="#{groupBean.element.leader}" rendered="#{groupBean.editable}"
                                          converter="converters.StudentConverter">
-                            <f:selectItems value="#{studentData.getStudentsByGroupMap(groupBean.element)}"/>
+                            <f:selectItems value="#{dataSelections.getStudentsByGroupMap(groupBean.element)}"/>
                         </h:selectOneMenu>
                     </h:column>
                     <h:column>
@@ -61,7 +62,8 @@
                     <h:messages style="color: red; font-style: italic"/>
                 </h:dataTable>
             </h:form>
-            <h:form>
+            <h:form id="addGroupForm">
+                <h2 class="formTitle">Group Form</h2>
                 <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
                     <f:facet name="header">Add Group</f:facet>
                     <h:outputText value="Name"/>

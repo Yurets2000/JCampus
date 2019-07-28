@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="default.css"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/main-template.xhtml">
+        <ui:define name="main">
+            <h1 class="pageTitle">Courses Manager</h1>
+            <div class="formsContainer">
+                <h:form id="setCourseToTeacher">
+                    <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                        <f:facet name="header">Set Course To Teacher</f:facet>
+                        <h:outputText value="Teacher"/>
+                        <h:selectOneMenu value="#{coursesManagerData.teacher}" converter="converters.TeacherConverter"
+                                         required="true" requiredMessage="Teacher field can't be empty">
+                            <f:ajax event="change" execute="@this" render="missingTeacherCourses"/>
+                            <f:selectItems value="#{teacherData.teachersMap}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Course"/>
+                        <h:selectOneMenu id="missingTeacherCourses" value="#{coursesManagerData.course}" converter="converters.CourseConverter"
+                                         required="true" requiredMessage="Course field can't be empty">
+                            <f:selectItems value="#{dataSelections.getMissingCoursesByTeacherMap(coursesManagerData.teacher)}"/>
+                        </h:selectOneMenu>
+                        <f:facet name="footer">
+                            <h:commandButton value="Add Course" action="#{coursesManagerData.setCourseToTeacher()}"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+                <h:form id="removeCourseFromTeacher">
+                    <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                        <f:facet name="header">Remove Course From Teacher</f:facet>
+                        <h:outputText value="Teacher"/>
+                        <h:selectOneMenu value="#{coursesManagerData.teacher}" converter="converters.TeacherConverter"
+                                         required="true" requiredMessage="Teacher field can't be empty">
+                            <f:ajax event="change" execute="@this" render="teacherCourses"/>
+                            <f:selectItems value="#{teacherData.teachersMap}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Course"/>
+                        <h:selectOneMenu id="teacherCourses" value="#{coursesManagerData.course}" converter="converters.CourseConverter"
+                                         required="true" requiredMessage="Course field can't be empty">
+                            <f:selectItems value="#{dataSelections.getCoursesByTeacherMap(coursesManagerData.teacher)}"/>
+                        </h:selectOneMenu>
+                        <f:facet name="footer">
+                            <h:commandButton value="Remove Course" action="#{coursesManagerData.removeCourseFromTeacher()}"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+            <div class="formsContainer">
+                <h:form id="addCourseToGroup">
+                    <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                        <f:facet name="header">Add Course To Group</f:facet>
+                        <h:outputText value="Group"/>
+                        <h:selectOneMenu value="#{coursesManagerData.group}" converter="converters.GroupConverter"
+                                         required="true" requiredMessage="Group field can't be empty">
+                            <f:ajax event="change" execute="@this" render="missingGroupCourses"/>
+                            <f:selectItems value="#{groupData.groupsMap}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Course"/>
+                        <h:selectOneMenu id="missingGroupCourses" value="#{coursesManagerData.course}" converter="converters.CourseConverter"
+                                         required="true" requiredMessage="Course field can't be empty">
+                            <f:selectItems value="#{dataSelections.getMissingCoursesByGroupMap(coursesManagerData.group)}"/>
+                        </h:selectOneMenu>
+                        <f:facet name="footer">
+                            <h:commandButton value="Add Course" action="#{coursesManagerData.addCourseToGroup()}"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+                <h:form id="removeCourseFromGroup">
+                    <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                        <f:facet name="header">Remove Course From Group</f:facet>
+                        <h:outputText value="Group"/>
+                        <h:selectOneMenu value="#{coursesManagerData.group}" converter="converters.GroupConverter"
+                                         required="true" requiredMessage="Group field can't be empty">
+                            <f:ajax event="change" execute="@this" render="groupCourses"/>
+                            <f:selectItems value="#{groupData.groupsMap}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Course"/>
+                        <h:selectOneMenu id="groupCourses" value="#{coursesManagerData.course}" converter="converters.CourseConverter"
+                                         required="true" requiredMessage="Course field can't be empty">
+                            <f:selectItems value="#{dataSelections.getCoursesByGroupMap(coursesManagerData.group)}"/>
+                        </h:selectOneMenu>
+                        <f:facet name="footer">
+                            <h:commandButton value="Remove Course" action="#{coursesManagerData.removeCourseFromGroup()}"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+            <h:messages style="color: red; font-style: italic"/>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

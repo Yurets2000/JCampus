@@ -13,6 +13,7 @@
         <ui:define name="main">
             <h1 class="pageTitle">Students</h1>
             <h:form id="displayStudentsForm">
+                <h2 class="formTitle">Students Table</h2>
                 <h:dataTable value="#{studentData.studentBeans}" var="studentBean"
                              cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
                     <h:column>
@@ -53,7 +54,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">Group</f:facet>
-                        <h:outputText value="#{studentBean.element.group.name}"/>
+                        <h:outputText value="#{studentBean.element.group}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header"/>
@@ -73,6 +74,7 @@
                 </h:dataTable>
             </h:form>
             <h:form id="addStudentForm">
+                <h2 class="formTitle">Student Form</h2>
                 <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
                     <f:facet name="header">Add Student</f:facet>
                     <h:outputText value="Name"/>

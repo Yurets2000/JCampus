@@ -1,7 +1,6 @@
 package beans;
 
 import dao.StudentDao;
-import dto.Group;
 import dto.Student;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -38,15 +37,6 @@ public class StudentData {
     }
 
     public Map<String, Student> getStudentsMap() {
-        return studentsMap;
-    }
-
-    public Map<String, Student> getStudentsByGroupMap(Group group) {
-        Map<String, Student> studentsMap = new LinkedHashMap<>();
-        refreshStudentBeans();
-        studentBeans.stream().map(TableElement::getElement)
-                .filter(student -> group.equals(student.getGroup()))
-                .forEach(student -> studentsMap.put(student.toString(), student));
         return studentsMap;
     }
 

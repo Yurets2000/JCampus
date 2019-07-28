@@ -13,6 +13,7 @@
         <ui:define name="main">
             <h1 class="pageTitle">Teachers</h1>
             <h:form id="displayTeachersForm">
+                <h2 class="formTitle">Teachers Table</h2>
                 <h:dataTable value="#{teacherData.teacherBeans}" var="teacherBean"
                              cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
                     <h:column>
@@ -80,6 +81,7 @@
                 </h:dataTable>
             </h:form>
             <h:form id="addTeacherForm">
+                <h2 class="formTitle">Teacher Form</h2>
                 <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
                     <f:facet name="header">Add Teacher</f:facet>
                     <h:outputText value="Name"/>

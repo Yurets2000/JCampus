@@ -1,4 +1,4 @@
-package dto.managers;
+package dao.managers;
 
 import dto.Course;
 import dto.Group;

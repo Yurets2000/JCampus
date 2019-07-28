@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="default.css"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/main-template.xhtml">
+        <ui:define name="main">
+            <h1 class="pageTitle">Group Courses</h1>
+            <h:form id="displayGroupCoursesForm">
+                <h2 class="formTitle">Group Courses Table</h2>
+                <p>
+                    <h:outputText value="Group: "/>
+                    <h:selectOneMenu value="#{coursesManagerData.group}" converter="converters.GroupConverter"
+                                     required="true" requiredMessage="Group field can't be empty">
+                        <f:ajax event="change" execute="@this" render="groupCoursesTable"/>
+                        <f:selectItems value="#{groupData.groupsMap}"/>
+                    </h:selectOneMenu>
+                </p>
+                <h:dataTable id="groupCoursesTable"
+                             value="#{dataSelections.getCoursesByGroup(coursesManagerData.group)}"
+                             var="course" cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{course.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Hours</f:facet>
+                        <h:outputText value="#{course.hours}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Teacher</f:facet>
+                        <h:outputText value="#{course.teacher}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

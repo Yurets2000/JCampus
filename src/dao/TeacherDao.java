@@ -1,8 +1,8 @@
 package dao;
 
+import dao.managers.GroupManager;
 import dto.Group;
 import dto.Teacher;
-import dto.managers.GroupManager;
 import org.hibernate.Session;
 
 public class TeacherDao extends GenericDao<Teacher> {

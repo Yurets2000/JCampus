@@ -39,8 +39,20 @@
                                            action="#{teacherData.redirect()}"/>
                         </li>
                         <li>
-                            <h:commandLink styleClass="navigationalLink" value="GroupsManager"
+                            <h:commandLink styleClass="navigationalLink" value="Courses"
+                                           action="#{courseData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="Groups Manager"
                                            action="#{groupsManagerData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="Courses Manager"
+                                           action="#{coursesManagerData.redirect()}"/>
+                        </li>
+                        <li>
+                            <h:commandLink styleClass="navigationalLink" value="Group Courses"
+                                           action="#{groupCoursesData.redirect()}"/>
                         </li>
                         <li>
                             <h:outputLink styleClass="navigationalLink" value="../index.xhtml">Main</h:outputLink>

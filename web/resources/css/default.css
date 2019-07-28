@@ -35,8 +35,11 @@ body{
     font-family: Concert One;
 }
 
-.dataTable, .panelGrid{
+form{
     margin: 15px;
+}
+
+.dataTable, .panelGrid{
     border-collapse: collapse;
     border: 1px solid black;
 }
@@ -51,6 +54,10 @@ body{
 
 .dataTableHeader{
     background-color: aquamarine;
+}
+
+.formsContainer{
+    display: flex;
 }
 
 .pageTitle{

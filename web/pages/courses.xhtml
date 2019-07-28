@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="default.css"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/main-template.xhtml">
+        <ui:define name="main">
+            <h1 class="pageTitle">Courses</h1>
+            <h:form id="displayCoursesForm">
+                <h2 class="formTitle">Courses Table</h2>
+                <h:dataTable value="#{courseData.courseBeans}" var="courseBean"
+                             cellpadding="10px" headerClass="dataTableHeader" styleClass="dataTable">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{courseBean.element.name}" rendered="#{not courseBean.editable}"/>
+                        <h:inputText value="#{courseBean.element.name}" rendered="#{courseBean.editable}"
+                                     required="true" requiredMessage="Name field can't be empty"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Hours</f:facet>
+                        <h:outputText value="#{courseBean.element.hours}" rendered="#{not courseBean.editable}"/>
+                        <h:inputText value="#{courseBean.element.hours}" rendered="#{courseBean.editable}"
+                                     required="true" requiredMessage="Hours field can't be empty"
+                                     validatorMessage="Hours field filled incorrect">
+                            <f:validateLongRange minimum="0" maximum="500"/>
+                        </h:inputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Teacher</f:facet>
+                        <h:outputText value="#{courseBean.element.teacher}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <h:commandButton image="../resources/icons/edit.png" styleClass="tableButton"
+                                         rendered="#{not courseBean.editable}"
+                                         action="#{courseData.editCourse(courseBean)}"/>
+                        <h:commandButton image="../resources/icons/checked.png" styleClass="tableButton"
+                                         rendered="#{courseBean.editable}" action="#{courseData.updateCourse(courseBean)}"/>
+                    </h:column>
+                    <h:messages style="color: red; font-style: italic"/>
+                </h:dataTable>
+            </h:form>
+            <h:form id="addCourseForm">
+                <h2 class="formTitle">Course Form</h2>
+                <h:panelGrid cellpadding="10px" styleClass="panelGrid" columns="2">
+                    <f:facet name="header">Add Course</f:facet>
+                    <h:outputText value="Name"/>
+                    <h:inputText value="#{courseBean.element.name}"
+                                 required="true" requiredMessage="Name field can't be empty"/>
+                    <h:outputText value="Hours"/>
+                    <h:inputText value="#{courseBean.element.hours}"
+                                 required="true" requiredMessage="Hours field can't be empty"
+                                 validatorMessage="Hours field filled incorrect">
+                        <f:validateLongRange minimum="0" maximum="500"/>
+                    </h:inputText>
+                    <f:facet name="footer">
+                        <h:commandButton value="Add" action="#{groupData.addGroup()}"/>
+                    </f:facet>
+                    <h:messages style="color: red; font-style: italic"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
